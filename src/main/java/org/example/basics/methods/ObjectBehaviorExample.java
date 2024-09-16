@@ -12,4 +12,36 @@ package org.example.basics.methods;
  * для реализации реалистичных операций с базами данных в программировании.</p>
  */
 public class ObjectBehaviorExample {
+    // Статический метод для проверки статуса базы данных
+    public static boolean checkDatabaseStatus() {
+        System.out.println("Проверка состояния базы данных...");
+        // Здесь может быть логика для проверки статуса, например пинг к базе данных
+        return true; // Предположим, что база данных работает
+    }
+
+    // Экземплярный метод для выполнения операций с базой данных
+    public void connectAndQueryDatabase() {
+        System.out.println("Подключение к базе данных...");
+        // Логика подключения к базе данных
+        // Например, DriverManager.getConnection() для подключения к базе данных
+
+        System.out.println("Выполнение запроса...");
+        // Логика для выполнения запроса, например Statement.executeQuery()
+
+        System.out.println("Закрытие соединения...");
+        // Логика для закрытия соединения с базой данных, например Connection.close()
+    }
+
+    public static void main(String[] args) {
+        // Вызов статического метода без создания экземпляра класса
+        if (ObjectBehaviorExample.checkDatabaseStatus()) {
+            System.out.println("База данных доступна.");
+
+            // Создание экземпляра класса для подключения и выполнения операций
+            ObjectBehaviorExample dbConnection = new ObjectBehaviorExample();
+            dbConnection.connectAndQueryDatabase();
+        } else {
+            System.out.println("База данных недоступна.");
+        }
+    }
 }
