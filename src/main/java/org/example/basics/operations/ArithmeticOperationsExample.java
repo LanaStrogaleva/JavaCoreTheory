@@ -11,4 +11,30 @@ package org.example.basics.operations;
  * на Java и может служить отправной точкой для дальнейшего изучения числовых операций и математических вычислений.</p>
  */
 public class ArithmeticOperationsExample {
+    public static void main(String[] args) {
+        // Пример переменных
+        int a = 10;
+        int b = 5;
+        int c = -3;
+
+        // Сложение
+        int sum = a + b;
+        System.out.println("Сложение: " + a + " + " + b + " = " + sum);
+
+        // Вычитание
+        int difference = a - c;
+        System.out.println("Вычитание: " + a + " - " + c + " = " + difference);
+
+        // Умножение
+        int product = a * c;
+        System.out.println("Умножение: " + a + " * " + c + " = " + product);
+
+        // Деление
+        int division = a / b;
+        System.out.println("Деление: " + a + " / " + b + " = " + division);
+
+        // Остаток от деления (modulo)
+        int remainder = a % c;
+        System.out.println("Остаток от деления: " + a + " % " + c + " = " + remainder);
+    }
 }

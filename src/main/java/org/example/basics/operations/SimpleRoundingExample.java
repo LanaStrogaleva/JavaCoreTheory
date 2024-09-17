@@ -13,4 +13,33 @@ package org.example.basics.operations;
  * <p>Этот класс полезен для понимания основных принципов округления без использования специализированных математических методов.</p>
  */
 public class SimpleRoundingExample {
+    public static void main(String[] args) {
+        // Пример числа с плавающей точкой
+        double num1 = 7.65;
+        double num2 = -7.65;
+
+        // Простейшее округление (добавляем 0.5 и кастуем к int)
+        int rounded1 = (int) (num1 + 0.5);
+        System.out.println("Простое округление: " + num1 + " -> " + rounded1);
+
+        // Округление для отрицательного числа (вычитаем 0.5)
+        int rounded2 = (int) (num2 - 0.5);
+        System.out.println("Простое округление для отрицательного числа: " + num2 + " -> " + rounded2);
+
+        // Округление до 2 десятичных знаков
+        double customRounded = simpleRoundToDecimalPlaces(num1, 2);
+        System.out.println("Округление до 2 десятичных знаков: " + num1 + " -> " + customRounded);
+    }
+
+    /**
+     * Метод для простого округления числа с плавающей точкой до указанного количества десятичных знаков.
+     *
+     * @param value исходное число с плавающей точкой
+     * @param decimalPlaces количество десятичных знаков для округления
+     * @return округленное значение
+     */
+    public static double simpleRoundToDecimalPlaces(double value, int decimalPlaces) {
+        double scale = Math.pow(10, decimalPlaces);
+        return (int) (value * scale + 0.5) / scale;
+    }
 }
