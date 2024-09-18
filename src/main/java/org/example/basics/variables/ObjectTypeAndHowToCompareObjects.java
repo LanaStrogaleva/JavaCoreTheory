@@ -15,4 +15,60 @@ package org.example.basics.variables;
  * а также для изучения важности и методики переопределения метода 'equals' в пользовательских классах.
  */
 public class ObjectTypeAndHowToCompareObjects {
+    public static class Person {
+        private String name;
+        private int age;
+
+        public Person(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        // Переопределение метода equals для сравнения объектов по значениям полей
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+
+            Person person = (Person) obj;
+            return age == person.age && name.equals(person.name);
+        }
+
+        // Переопределение метода hashCode (всегда желательно при переопределении equals)
+        @Override
+        public int hashCode() {
+            return 31 * name.hashCode() + age;
+        }
+    }
+
+    /**
+     * почему при переопределении метода equals мы не прописываем условие if(this.hashCode() != obj.hashCode()) return false;
+     * При переопределении метода equals() мы не проверяем хеш-коды объектов с помощью условия if (this.hashCode() != obj.hashCode()) return false; по следующим причинам:
+     * 1. Хеш-код не гарантирует уникальность
+     * Хеш-код — это целое число, которое не является уникальным идентификатором объекта. Два разных объекта могут иметь один и тот же хеш-код.
+     * Это явление называется коллизией хеш-кодов. Например, объекты с одинаковыми хеш-кодами могут быть разными по своему содержимому и не равны по методу equals().
+     * Если мы будем проверять хеш-коды в методе equals(), это может привести к ложным выводам о равенстве объектов.
+     *
+     * Контракт hashCode() и equals()
+     * Согласно контракту между методами equals() и hashCode():
+     * Если два объекта равны по методу equals(), то их хеш-коды обязательно должны быть равны.
+     * Но если два объекта имеют одинаковые хеш-коды, это не гарантирует, что они равны по методу equals().
+     * Цель equals() и hashCode()
+     * Метод equals() проверяет содержимое объектов для определения их логической эквивалентности. Это проверка на уровне данных объектов.
+     * В то время как метод hashCode() используется в основном для улучшения производительности при работе с коллекциями на основе хеширования
+     * (например, HashMap, HashSet), он не предназначен для определения логического равенства.
+     */
+    public static void main(String[] args) {
+        // Создаем три объекта класса Person
+        Person person1 = new Person("John", 30);
+        Person person2 = new Person("John", 30);
+        Person person3 = new Person("Jane", 25);
+
+        // Сравнение по ссылкам (оператор ==)
+        System.out.println("person1 == person2: " + (person1 == person2));  // false, т.к. ссылки разные
+
+        // Сравнение по значениям (метод equals)
+        System.out.println("person1.equals(person2): " + person1.equals(person2));  // true, т.к. значения полей одинаковы
+        System.out.println("person1.equals(person3): " + person1.equals(person3));  // false, разные значения полей
+    }
 }
