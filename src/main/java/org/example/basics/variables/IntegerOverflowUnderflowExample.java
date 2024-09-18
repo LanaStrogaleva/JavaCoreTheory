@@ -12,4 +12,21 @@ package org.example.basics.variables;
  * которые могут возникать при работе с большими или маленькими значениями.
  */
 public class IntegerOverflowUnderflowExample {
+    public static void main(String[] args) {
+        // Максимальное значение типа int
+        int maxInt = Integer.MAX_VALUE;
+        System.out.println("Максимальное значение int: " + maxInt);
+
+        // Переполнение: добавляем 1 к максимальному значению int
+        int overflow = maxInt + 1;
+        System.out.println("После переполнения (maxInt + 1): " + overflow);
+
+        // Минимальное значение типа int
+        int minInt = Integer.MIN_VALUE;
+        System.out.println("Минимальное значение int: " + minInt);
+
+        // Недополнение: вычитаем 1 из минимального значения int
+        int underflow = minInt - 1;
+        System.out.println("После недополнения (minInt - 1): " + underflow);
+    }
 }

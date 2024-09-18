@@ -17,4 +17,38 @@ package org.example.basics.variables;
  * в объектно-ориентированном программировании на Java.</p>
  */
 public class StaticAndNonStaticVariables {
+    // Статическая переменная для глобального счетчика totalCount увеличивается каждый раз,
+    // когда создается новый экземпляр класса StaticAndNonStaticVariables.
+    // Это значение будет общим для всех экземпляров класса.
+    private static int totalCount = 0;
+
+    // Нестатическая переменная для счетчика экземпляра instanceCount
+    // увеличивается только для текущего экземпляра класса.
+    // Каждый объект имеет свой собственный instanceCount.
+    private int instanceCount = 0;
+
+    // Конструктор класса
+    public StaticAndNonStaticVariables() {
+        // Увеличиваем глобальный счетчик при создании нового экземпляра
+        totalCount++;
+        // Увеличиваем счетчик для текущего экземпляра
+        instanceCount++;
+    }
+
+    // Метод для отображения значений счетчиков
+    public void displayCounts() {
+        System.out.println("Total Count: " + totalCount);
+        System.out.println("Instance Count: " + instanceCount);
+    }
+
+    public static void main(String[] args) {
+        // Создаем несколько экземпляров класса и отображаем счетчики для каждого созданного класса:
+        StaticAndNonStaticVariables obj1 = new StaticAndNonStaticVariables();
+        obj1.displayCounts();
+        StaticAndNonStaticVariables obj2 = new StaticAndNonStaticVariables();
+        obj2.displayCounts();
+        StaticAndNonStaticVariables obj3 = new StaticAndNonStaticVariables();
+        obj3.displayCounts();
+
+    }
 }
