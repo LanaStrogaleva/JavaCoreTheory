@@ -1,4 +1,8 @@
 package org.example.collections;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Класс <b>GenericAdvanced</b> демонстрирует продвинутое использование дженериков в Java,
  * особенно в контексте коллекций и методов с ограниченными параметрами (wildcards).
@@ -16,4 +20,40 @@ package org.example.collections;
  * способные работать с широким диапазоном типов данных.</p>
  */
 public class GenericAdvanced {
+
+    public static void main(String[] args) {
+        List<Integer> intList = new ArrayList<>();
+        intList.add(1);
+        intList.add(2);
+        intList.add(3);
+
+        List<Number> numList = new ArrayList<>();
+        numList.add(1.5);
+        numList.add(2.5);
+        numList.add(3.5);
+
+        // Вызов методов с ограниченными дженериками
+        CollectionUtils.printCollection(intList); // работает с Integer и производными от Number
+        CollectionUtils.printCollection(numList); // работает с Number
+
+        CollectionUtils.mergeCollections(intList, numList); // объединяем две коллекции
+        System.out.println("After merge: " + numList);
+    }
+}
+
+class CollectionUtils {
+
+    // Метод с верхней границей (upper-bounded wildcard)
+    public static void printCollection(List<? extends Number> list) {
+        for (Number element : list) {
+            System.out.println(element);
+        }
+    }
+
+    // Метод с нижней границей (lower-bounded wildcard)
+    public static <T> void mergeCollections(List<? extends T> source, List<? super T> destination) {
+        for (T element : source) {
+            destination.add(element);
+        }
+    }
 }

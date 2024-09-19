@@ -1,5 +1,6 @@
 package org.example.collections;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 /**
@@ -23,19 +24,92 @@ import java.util.function.Consumer;
  *
  * @param <T> Тип элементов, хранящихся в коллекции.
  */
-public class CircularArray<T> implements Iterable<T>{
+public class CircularArray<T> implements Iterable<T> {
+    private T[] array;
+    private int size;
+
+    // Конструктор класса CircularArray
+    public CircularArray(int capacity) {
+        array = (T[]) new Object[capacity];
+        size = 0;
+    }
+
+    // Метод для добавления элемента в массив -Этот метод позволяет добавить новый элемент в массив.
+    // Если массив заполнен, он не позволит добавить больше элементов.
+    public void add(T element) {
+        if (size == array.length) {
+            throw new IllegalStateException("Array is full");
+        }
+        array[size++] = element;
+    }
+
+    // Метод для получения элемента по индексу
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid index");
+        }
+        return array[index];
+    }
+
+    // Возвращаем итератор для циклического обхода массива
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new CircularArrayIterator();
     }
 
+    // Внутренний класс для итерации по CircularArray
+    private class CircularArrayIterator implements Iterator<T> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return size > 0;  // hasNext всегда возвращает true, если массив не пуст
+        }
+
+        @Override
+        public T next() {
+            if (size == 0) {
+                throw new NoSuchElementException();
+            }
+            T element = array[currentIndex];
+            currentIndex = (currentIndex + 1) % size;  // Циклическое перемещение по массиву
+            return element;
+        }
+    }
+
+    // Реализация метода forEach из интерфейса Iterable
     @Override
     public void forEach(Consumer<? super T> action) {
-        Iterable.super.forEach(action);
+        for (T element : this) {
+            action.accept(element);
+        }
     }
 
+    // Реализация метода spliterator из интерфейса Iterable
     @Override
     public Spliterator<T> spliterator() {
         return Iterable.super.spliterator();
+    }
+
+    // Демонстрационный класс для использования CircularArray
+    public static class DemoForCustomIterable {
+        public static void main(String[] args) {
+            // Создаем экземпляр CircularArray для строк
+            CircularArray<String> circularArray = new CircularArray<>(5);
+            circularArray.add("apple");
+            circularArray.add("banana");
+            circularArray.add("cherry");
+
+            // Внешний счётчик для ограничения итераций
+            int iterationLimit = 10;
+            int counter = 0;
+
+            // Итерируем по circularArray с ограничением на количество итераций
+            for (String fruit : circularArray) {
+                if (counter >= iterationLimit) break;
+                System.out.println(fruit);
+                counter++;
+            }
+        }
     }
 }

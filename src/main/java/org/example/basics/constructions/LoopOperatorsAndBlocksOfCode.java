@@ -24,6 +24,9 @@ public class LoopOperatorsAndBlocksOfCode {
         // Пример цикла do-while
         System.out.println("\nПример цикла do-while:");
         doWhileLoopExample();
+        // Пример использование блочных операторов для организации области видимости переменных.
+        System.out.println("\nПример области видимости переменных внутри блока кода.");
+        blocksOfCodeExample();
 
     }
 
@@ -59,6 +62,20 @@ public class LoopOperatorsAndBlocksOfCode {
             System.out.println("Цикл do-while, итерация: " + i);
             i++;
         } while (i < 5);
+    }
+    /**
+     * Пример использование блочных операторов для организации области видимости переменных..
+     */
+    public static void blocksOfCodeExample() {
+        {
+            int b = 10; // - первый раз объявили переменную b
+            System.out.println("Переменная b -объявили первый раз: " + b);
+        }
+
+         {
+            int b = 20; // - второй раз объявили переменную b
+            System.out.println("Переменная b -объявили второй раз: " + b);
+        }
     }
 
 }
