@@ -1,4 +1,7 @@
 package org.example.basics.datatypes;
+
+import java.util.Arrays;
+
 /**
  * Пример создания массива и обход элементов циклом с счётчиком.
  */
@@ -11,5 +14,9 @@ public class ArrayExample1 {
         for (int i = 0; i < numbers.length; i++) {
             System.out.println("Элемент массива на позиции " + i + ": " + numbers[i]);
         }
+        System.out.println(numbers);
+        System.out.println(numbers.toString());
+        System.out.println(Arrays.toString(numbers));
     }
+
 }
