@@ -1,4 +1,9 @@
 package org.example.exeptions;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * Класс <b>TryWithResourcesExample</b> демонстрирует использование конструкции try-with-resources в Java.
  * Эта конструкция используется в ситуациях, когда требуется автоматическое закрытие ресурсов, например, при работе с файлами,
@@ -16,4 +21,20 @@ package org.example.exeptions;
  * и обеспечения более надежной работы с файлами и другими ресурсами.</p>
  */
 public class TryWithResourcesExample {
+    public static void main(String[] args) {
+        // Путь к файлу, который будет прочитан
+        String filePath = "example.txt";
+
+        // Использование try-with-resources для автоматического закрытия BufferedReader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            // Чтение файла построчно
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line); // Вывод строки на экран
+            }
+        } catch (IOException e) {
+            // Обработка исключения, если возникла ошибка ввода-вывода
+            System.err.println("Ошибка при чтении файла: " + e.getMessage());
+        }
+    }
 }

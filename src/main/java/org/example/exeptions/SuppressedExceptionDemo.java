@@ -14,4 +14,27 @@ package org.example.exeptions;
  * а также демонстрирует механизм подавления исключений, который может быть полезен в сложных сценариях обработки ошибок.</p>
  */
 public class SuppressedExceptionDemo {
+    // Вложенный статический класс, который реализует интерфейс AutoCloseable
+    static class CustomResource implements AutoCloseable {
+        @Override
+        public void close() {
+            // Генерация исключения при закрытии ресурса
+            throw new RuntimeException("Ошибка при закрытии ресурса.");
+        }
+    }
+
+    public static void main(String[] args) {
+        try (CustomResource resource = new CustomResource()) {
+            // Генерация основного исключения
+            throw new IllegalArgumentException("Основная ошибка.");
+        } catch (IllegalArgumentException e) {
+            // Обработка основного исключения
+            System.out.println("Обработано исключение: " + e.getMessage());
+
+            // Получение и вывод подавленных исключений
+            for (Throwable suppressed : e.getSuppressed()) {
+                System.out.println("Подавленное исключение: " + suppressed.getMessage());
+            }
+        }
+    }
 }

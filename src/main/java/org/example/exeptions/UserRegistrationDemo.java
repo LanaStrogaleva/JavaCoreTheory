@@ -21,5 +21,69 @@ package org.example.exeptions;
  * <p>Этот класс является полезным ресурсом для понимания работы с разными типами исключений в Java и их практического использования
  * для обработки ошибок в приложениях.</p>
  */
+// Проверяемое исключение для обработки ошибок валидации данных
+class InvalidDataException extends Exception {
+    public InvalidDataException(String message) {
+        super(message);
+    }
+}
+
+// Непроверяемое исключение для обработки ошибок, связанных с базой данных
+class DatabaseRuntimeException extends RuntimeException {
+    public DatabaseRuntimeException(String message) {
+        super(message);
+    }
+}
+
+// Класс для регистрации пользователя
+class UserRegistration {
+    public void registerUser(String username, String password) throws InvalidDataException {
+        // Простейшая валидация данных
+        if (username == null || username.isEmpty()) {
+            throw new InvalidDataException("Имя пользователя не может быть пустым.");
+        }
+        if (password == null || password.length() < 6) {
+            throw new InvalidDataException("Пароль должен содержать минимум 6 символов.");
+        }
+
+        // Имитируем ошибку базы данных
+        simulateDatabaseError();
+        System.out.println("Пользователь " + username + " успешно зарегистрирован.");
+    }
+
+    // Метод, который имитирует ошибку базы данных
+    private void simulateDatabaseError() {
+        throw new DatabaseRuntimeException("Ошибка подключения к базе данных.");
+    }
+}
+
+// Главный класс для демонстрации
 public class UserRegistrationDemo {
+    public static void main(String[] args) {
+        UserRegistration userRegistration = new UserRegistration();
+
+        try {
+            userRegistration.registerUser("", "password123");
+        } catch (InvalidDataException e) {
+            System.err.println("Ошибка валидации: " + e.getMessage());
+        } catch (DatabaseRuntimeException e) {
+            System.err.println("Ошибка базы данных: " + e.getMessage());
+        }
+
+        try {
+            userRegistration.registerUser("user1", "short");
+        } catch (InvalidDataException e) {
+            System.err.println("Ошибка валидации: " + e.getMessage());
+        } catch (DatabaseRuntimeException e) {
+            System.err.println("Ошибка базы данных: " + e.getMessage());
+        }
+
+        try {
+            userRegistration.registerUser("user2", "password123");
+        } catch (InvalidDataException e) {
+            System.err.println("Ошибка валидации: " + e.getMessage());
+        } catch (DatabaseRuntimeException e) {
+            System.err.println("Ошибка базы данных: " + e.getMessage());
+        }
+    }
 }
