@@ -1,4 +1,7 @@
 package org.example.exeptions;
+
+import java.util.Arrays;
+
 /**
  * Класс <b>ExceptionExample</b> демонстрирует основы синтаксиса обработки исключений в Java, включая использование блоков try, catch и finally.
  *
@@ -13,4 +16,39 @@ package org.example.exeptions;
  * что необходимо для написания надежных и устойчивых к ошибкам приложений.</p>
  */
 public class ExceptionExample {
+    public static void main(String[] args) {
+        // Пример обработки исключений
+        try {
+            // Код, который может вызвать исключение
+            int result = 10 / 0; // Деление на ноль
+            System.out.println("Результат: " + result);
+        } catch (ArithmeticException e) {
+            // Обработка исключения ArithmeticException
+            System.out.println("Ошибка: " + e.getMessage());
+        } finally {
+            // Блок finally выполняется всегда
+            System.out.println("Блок finally выполнен.");
+        }
+
+        // Пример с несколькими блоками catch
+        severalCatchBlocks();
+    }
+
+    public static void severalCatchBlocks() {
+        try {
+            String text = null;
+            // Попытка вызвать NullPointerException
+            System.out.println(text.length());
+        } catch (NullPointerException e) {
+            // Обработка исключения NullPointerException
+            System.out.println("Ошибка: " + e.getMessage());
+        } catch (Exception e) {
+            // Обработка любого другого исключения
+            System.out.println("Общая ошибка: " + e.getMessage());
+        } finally {
+            // Блок finally выполняется всегда
+            System.out.println("Блок finally в severalCatchBlocks выполнен.");
+        }
+    }
+
 }

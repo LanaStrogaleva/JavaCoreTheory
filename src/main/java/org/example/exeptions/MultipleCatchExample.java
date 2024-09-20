@@ -13,4 +13,34 @@ package org.example.exeptions;
  * обеспечивая корректную обработку ошибок в приложении.</p>
  */
 public class MultipleCatchExample {
+    public static void main(String[] args) {
+        try {
+            // Попытка доступа к длине строки, значение которой равно null
+            String text = null;
+            System.out.println("Длина строки: " + text.length());
+        } catch (NullPointerException e) {
+            // Обработка исключения NullPointerException
+            System.out.println("Ошибка: Попытка доступа к длине строки, значение которой равно null.");
+        } catch (Exception e) {
+            // Обработка любого другого исключения
+            System.out.println("Общая ошибка: " + e.getMessage());
+        }
+
+        // Дополнительный пример с другой ошибкой
+        anotherExample();
+    }
+
+    public static void anotherExample() {
+        try {
+            // Попытка деления на ноль
+            int result = 10 / 0;
+            System.out.println("Результат: " + result);
+        } catch (ArithmeticException e) {
+            // Обработка исключения ArithmeticException
+            System.out.println("Ошибка: Деление на ноль.");
+        } catch (Exception e) {
+            // Обработка любого другого исключения
+            System.out.println("Общая ошибка: " + e.getMessage());
+        }
+    }
 }

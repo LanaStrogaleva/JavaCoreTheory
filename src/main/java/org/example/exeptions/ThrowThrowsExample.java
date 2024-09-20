@@ -17,5 +17,30 @@ package org.example.exeptions;
  * <p>Этот пример является полезным ресурсом для понимания, как создавать и использовать собственные классы исключений,
  * а также управлять исключениями в Java.</p>
  */
+@SuppressWarnings("ALL") // подавляет предупреждения компилятора, например, использование устаревших методов, неиспользуемых переменных и т. д.)
 public class ThrowThrowsExample {
+
+    // Вложенный класс CustomException, расширяющий стандартный класс Exception
+    static class CustomException extends Exception {
+        public CustomException(String message) {
+            super(message);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            validateNumber(-1); // Вызов метода с недопустимым значением
+        } catch (CustomException e) {
+            // Обработка пользовательского исключения
+            System.out.println("Обработано исключение: " + e.getMessage());
+        }
+    }
+
+    // Метод для проверки числа, выбрасывающий CustomException
+    public static void validateNumber(int number) throws CustomException {
+        if (number < 0) {
+            throw new CustomException("Число не может быть отрицательным: " + number);
+        }
+        System.out.println("Число допустимо: " + number);
+    }
 }
